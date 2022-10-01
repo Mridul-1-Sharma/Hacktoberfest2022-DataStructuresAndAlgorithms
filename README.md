@@ -11,7 +11,7 @@
 <img src="https://img.shields.io/badge/HacktoberFest-2022-blueviolet" alt="Hacktober Badge"/>
 <a href="https://github.com/Mridul-1-Sharma" ><img src="https://img.shields.io/badge/Contributions-welcome-green.svg?style=flat&logo=github" alt="Contributions" /></a>
 <a href="https://github.com/Mridul-1-Sharma/DataStructureaAndAlgos/pulls"><img src="https://img.shields.io/github/issues-pr/Mridul-1-Sharma/DataStructureaAndAlgos" alt="Pull Requests Badge"/></a>
-<a href="https://github.com/Mridul-1-Sharma/DataStructureaAndAlgos/issues"><img src="https://img.shields.io/github/issues-pr/Mridul-1-Sharma/DataStructureaAndAlgos" alt="Issues Badge"/></a>
+<a href="https://github.com/Mridul-1-Sharma/DataStructureaAndAlgos/issues"><img src="https://img.shields.io/github/issues/Mridul-1-Sharma/DataStructureaAndAlgos" alt="Issues Badge"/></a>
 
 
 <h3 align="center">Data Structures and Algorithms</h3>
