@@ -1,0 +1,130 @@
+#include <iostream>
+using namespace std;
+struct Array
+{
+    int A[10];
+    int size;
+    int length;
+};
+
+// Function to display the Array
+void Display(struct Array arr)
+{
+    int i;
+    cout << endl
+         << "Elements are" << endl;
+    for (i = 0; i < arr.length; i++)
+        cout << arr.A[i] << endl;
+    ;
+}
+
+// Function for union of elements
+struct Array *Union(struct Array *arr1, struct Array *arr2)
+{
+    int i, j, k;
+    i = j = k = 0;
+
+    struct Array *arr3 = new struct Array;
+
+    while (i < arr1->length && j < arr2->length)
+    {
+        if (arr1->A[i] < arr2->A[j])
+            arr3->A[k++] = arr1->A[i++];
+        else if (arr2->A[j] < arr1->A[i])
+            arr3->A[k++] = arr2->A[j++];
+        else
+        {
+            arr3->A[k++] = arr1->A[i++];
+            j++;
+        }
+    }
+    for (; i < arr1->length; i++)
+        arr3->A[k++] = arr1->A[i];
+    for (; j < arr2->length; j++)
+        arr3->A[k++] = arr2->A[j];
+
+    arr3->length = k;
+    arr3->size = 10;
+
+    return arr3;
+}
+
+// Function for the intersection of the elements
+struct Array *Intersection(struct Array *arr1, struct Array *arr2)
+{
+    int i, j, k;
+    i = j = k = 0;
+
+    struct Array *arr3 = new struct Array;
+
+    while (i < arr1->length && j < arr2->length)
+    {
+        if (arr1->A[i] < arr2->A[j])
+            i++;
+        else if (arr2->A[j] < arr1->A[i])
+            j++;
+        else if (arr1->A[i] == arr2->A[j])
+        {
+            arr3->A[k++] = arr1->A[i++];
+            j++;
+        }
+    }
+
+    arr3->length = k;
+    arr3->size = 10;
+
+    return arr3;
+}
+
+// Function for finding the difference(set operation) of the two arrays
+struct Array *Difference(struct Array *arr1, struct Array *arr2)
+{
+    int i, j, k;
+    i = j = k = 0;
+
+    struct Array *arr3 = new struct Array;
+
+    while (i < arr1->length && j < arr2->length)
+    {
+        if (arr1->A[i] < arr2->A[j])
+            arr3->A[k++] = arr1->A[i++];
+        else if (arr2->A[j] < arr1->A[i])
+            j++;
+        else
+        {
+            i++;
+            j++;
+        }
+    }
+    for (; i < arr1->length; i++)
+        arr3->A[k++] = arr1->A[i];
+
+    arr3->length = k;
+    arr3->size = 10;
+
+    return arr3;
+}
+
+// Driver function
+int main()
+{
+    struct Array arr1 = {{2, 9, 21, 28, 35}, 10, 5};
+    struct Array arr2 = {{2, 3, 9, 18, 28}, 10, 5};
+    struct Array *arr3;
+    struct Array *arr4;
+    struct Array *arr5;
+    // Calling the union function
+    arr3 = Union(&arr1, &arr2);
+    cout << "Displaying the union of two arrays" << endl;
+    Display(*arr3);
+    // For intersection
+    arr4 = Intersection(&arr1, &arr2);
+    cout<< "Now displaying the intersection of two arrays" << endl;
+    Display(*arr4);
+
+    // For difference set operation
+    arr5 = Difference(&arr1, &arr2);
+    cout << "Now displaying the difference(set operation) of the two arrays" << endl;
+    Display(*arr5);
+    return 0;
+}
