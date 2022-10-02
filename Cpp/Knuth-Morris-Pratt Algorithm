@@ -1,0 +1,87 @@
+//Knuth-Morris-Pratt Algorithm
+#include<iostream>
+#include<string>
+
+using namespace std;
+
+//Compute the LPS Array for the pattern
+void LPS(string P,int *lps)
+{
+    int m = P.length(); //Length of the pattern string
+    int prevlps = 0, i = 1;
+    while(i < m)
+    {
+        if(P[i] == P[prevlps])
+        {
+            lps[i] = prevlps + 1;
+            prevlps += 1;
+            i+=1;
+        }
+        else if(prevlps == 0)
+        {
+            lps[i] = 0;
+            i+=1;
+        }
+        else
+        {
+            prevlps = lps[prevlps - 1];
+        }
+    }
+}
+
+int KMP(string S,string P)
+{
+    int n = S.length(); //Length of the main string
+    int m = P.length(); //Length of the pattern string
+    
+    int lps[m] = {0}; //lps is "Longest Prefix Suffix"
+    LPS(P,lps); //Function call for LPS
+    for (int i = 0; i < m; i++)
+    {
+        cout<<lps[i]<<" ";
+    }
+    
+    int i = 0; //Pointer for main string
+    int j =0; //Ponter for pattern string
+    while(i < n)
+    {
+        if(S[i] == P[j])
+        {
+            i+=1;
+            j+=1;
+        }
+        else
+        {
+            if(j == 0)
+            {
+                i+=1;
+            }
+            else
+            {
+                j = lps[j-1];
+            }
+        }
+        if(j == m)
+        {
+            return (i-m); //Starting index at which pattern is found
+        }               
+    }
+    return -1; //Return -1 if pattern is not found 
+}
+
+//Driver Code
+int main()
+{
+    string str = "aabdgcfaaabdfakakaaabdg"; //Main string
+    string patr = "aabdf"; //Pattern string
+    int res = KMP(str,patr);
+    if(res!=-1)
+    {
+        cout<<"Pattern Found at index "<<res<<endl;
+    }
+    else
+    {
+        cout<<"Pattern not found!!!"<<endl;
+    }
+    return 0;
+}
