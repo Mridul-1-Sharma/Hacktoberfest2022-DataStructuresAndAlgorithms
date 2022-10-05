@@ -1,0 +1,54 @@
+//Diameter of a Binary Tree
+/*The diameter of a binary tree is the length of the longest path between
+ any two nodes in a tree. This path may or may not pass through the root.
+The length of a path between two nodes is represented by the number of edges between them.*/
+#include<iostream>
+
+using namespace std;
+
+struct node
+{
+    int data;
+    struct node *left,*right;
+};
+
+struct node* newNode(int data)
+{
+    struct node* ptr = new node();
+    ptr->data = data;
+    ptr->left = NULL;
+    ptr->right = NULL; 
+    return (ptr);
+}
+
+int dfs(node *root,int &result)
+{    
+    if(root == NULL)
+    {
+        return 0;
+    }
+    int left = dfs(root->left,result);
+    int right = dfs(root->right,result);
+     
+    result = max(result, left + right);
+    return 1 + max(left, right);
+}
+
+int diameterOfBinaryTree(struct node* root) 
+{
+    int result = 0;
+    dfs(root, result);
+    return result;
+}
+
+int main()
+{
+    struct node* root = newNode(1);
+    root->left = newNode(2);    
+    root->left->left = newNode(4);
+    root->left->right = newNode(5);
+    root->left->left->left = newNode(4);
+    root->left->right->right = newNode(6);
+    cout<<"Diameter of the binary tree is "<<diameterOfBinaryTree(root)<<endl;
+    return 0;
+}
