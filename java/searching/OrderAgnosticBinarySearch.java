@@ -1,4 +1,7 @@
-// Let's suppose if we don't know that the array is sorted in ascending or descending order. First We need to identify whether the array is sorted in ascending order or descending order to make the decision about whether to continue the search in the lower half of the array or the upper half of the array
+//  Let's suppose if we don't know that the array is sorted in ascending or descending order. 
+// First We need to identify whether the array is sorted in ascending order or descending order 
+// to make the decision about whether to continue the search in the lower half of the array or 
+// the upper half of the array
 
 public class OrderAgnosticBinarySearch {
     public static void main(String[] args) {
