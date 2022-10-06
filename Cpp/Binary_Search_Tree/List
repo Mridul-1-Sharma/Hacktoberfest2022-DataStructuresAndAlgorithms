@@ -1,0 +1,22 @@
+01. Find a value in BST.
+02. Deletion of node in BST.
+03. Fin min and max value in a BST.
+04. Find inorder successor and inorder predecessor in a BST.
+05. Check if a tree is BST or not.
+06. Populate Inorder successor of all nodes.
+07. Find LCA of 2 nodes in a BST.
+08. Construct BST from preorder traversal
+09. Convert Binary tree into BST
+10. Convert a normal BST into a Balanced BST
+11. Merge two BST [ V.V.V. IMP ]
+12. Find Kth largest element in a BST
+13. Find Kth smallest element in a BST
+14. Count pairs from 2 BST whose sum is equal to given value "X"
+15. Find the median of BST in O(n) time and O(1) space
+16. Count BST nodes that lie in a given range
+17.
+18.
+19. Check preorder is valid or not 
+20. Check whether BST contains Dead end
+21. Largest BST in a Binary Tree [ V.V.V.V.V IMP ]
+22. Flatten BST to sorted list
