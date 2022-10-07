@@ -1,0 +1,73 @@
+Importing Required libraries:
+"""
+
+import cv2
+import urllib.request
+import numpy as np
+from google.colab.patches import cv2_imshow
+
+"""Uploading an image from the given images on colab"""
+
+from google.colab import files
+uploaded = files.upload()
+
+img = cv2.imread("Image4.jpg")
+cv2_imshow(img)
+cv2.waitKey(0)
+
+"""Storing the image as an array and finally loading the image"""
+
+type(img)
+
+cv2_imshow(img)
+
+"""Defining the CDF, Histogram in one plot"""
+
+hist,bins = np.histogram(img.flatten(),256,[0,256])
+cdf = hist.cumsum()
+cdf_normalized = cdf * float(hist.max()) / cdf.max()
+plt.plot(cdf_normalized, color = 'b')
+plt.hist(img.flatten(),256,[0,256], color = 'g')
+plt.xlim([0,256])
+plt.legend(('cdf','histogram'), loc = 'upper left')
+plt.show()
+
+def histeq(im, nbr_bins = 256):
+  """ Histogram equalization of image.  """
+  # get the image histogram
+  imhist, bins = np.histogram(im.flatten(), nbr_bins, [0, 256])
+  cdf = imhist.cumsum() # cumulative distribution function
+  cdf = imhist.max()*cdf/cdf.max()  #normalize
+  cdf_mask = np.ma.masked_equal(cdf, 0)
+  cdf_mask = (cdf_mask - cdf_mask.min())*255/(cdf_mask.max()-cdf_mask.min())
+  cdf = np.ma.filled(cdf_mask,0).astype('uint8')
+  return cdf[im.astype('uint8')]
+
+#Storing new equalized image as image_1:
+image_1=histeq(img)
+
+cv2_imshow(image_1)
+
+vis = np.concatenate((img, image_1), axis=1)
+cv2_imshow(vis)
+
+bins_edges_min_max = [0, 256]
+num_bins = 256
+bin_count, bins_edges = np.histogram(image_1, num_bins, bins_edges_min_max)
+bins_start = bins_edges[:-1]
+
+pdf = bin_count / np.sum(bin_count)
+cdf = np.cumsum(pdf)
+
+plt.hist(image_1.ravel(),bins = 256, range = [0, 256])
+plt.show()
+
+def histeq(image_1, nbr_bins = 256):
+  imhist, bins = np.histogram(im.flatten(), nbr_bins, [0, 256])
+cdf = hist.cumsum()
+cdf_normalized = cdf * float(hist.max()) / cdf.max()
+plt.plot(cdf_normalized, color = 'b')
+plt.hist(image_1.flatten(),256,[0,256], color = 'g')
+plt.xlim([0,256])
+plt.legend(('cdf','histogram'), loc = 'upper left')
+plt.show()
