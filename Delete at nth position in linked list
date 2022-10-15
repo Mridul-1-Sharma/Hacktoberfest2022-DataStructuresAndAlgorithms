@@ -1,0 +1,121 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct Node{
+    int data;
+    struct Node *next;
+};
+
+// required for deletePosition
+int getCurrSize(struct Node* node){
+    int size=0;
+
+    while(node!=NULL){
+        node = node->next;
+        size++;
+    }
+    return size;
+}
+
+// to delete nth node
+void deletePosition(struct Node** head, int n){
+    struct Node* temp = *head;
+    struct Node* previous;
+
+    //if the head node itself needs to be deleted
+    int size = getCurrSize(*head);
+    
+    // not valid
+    if(n < 1 || n > size){
+        printf("Enter valid position\n");
+        return;
+    }
+    
+    // delete the first node
+    if(n == 1){
+        // move head to next node
+        *head = (*head)->next;
+        printf("Deleted: %d\n", temp->data);
+        free(temp);
+        return;
+    }
+    
+    // traverse to the nth node
+    while (--n) 
+    {
+        // store previous link node as we need to change its next val
+        previous = temp; 
+        temp = temp->next; 
+    }
+    // change previous node's next node to nth node's next node
+    previous->next = temp->next;
+    printf("Deleted: %d\n", temp->data);
+
+    // delete this nth node
+    free(temp);
+}
+
+void display(struct Node* node){
+    printf("LinkedList : ");
+    // as linked list will end when Node is Null
+    while(node!=NULL){
+        printf("%d ",node->data);
+        node = node->next;
+    }
+    printf("\n\n");
+}
+
+int main()
+{
+    //creating 4 pointers of type struct Node
+    //So these can point to address of struct type variable
+    struct Node* head = NULL; 
+    struct Node* node2 = NULL; 
+    struct Node* node3 = NULL; 
+    struct Node* node4 = NULL;
+    struct Node* node5 = NULL;
+
+    // allocate 3 nodes in the heap 
+    head =  (struct Node*)malloc(sizeof(struct Node)); 
+    node2 = (struct Node*)malloc(sizeof(struct Node)); 
+    node3 = (struct Node*)malloc(sizeof(struct Node)); 
+    node4 = (struct Node*)malloc(sizeof(struct Node));
+    node5 = (struct Node*)malloc(sizeof(struct Node));
+
+   
+    head->data  = 25; // data set for head node 
+    head->next  = node2; // next pointer assigned to address of node2 
+
+    node2->data = 20; 
+    node2->next = node3; 
+
+    node3->data = 15;
+    node3->next = node4; 
+
+    node4->data = 10;
+    node4->next = node5;
+    
+    node5->data = 5;
+    node5->next = NULL;
+
+    display(head);
+    
+    // delete 2nd node
+    deletePosition(&head, 2);
+    display(head);    
+    
+    // delete 1st node
+    deletePosition(&head, 1);
+    display(head);
+    
+    deletePosition(&head, 3);
+    deletePosition(&head, 1);
+    deletePosition(&head, 1);
+    display(head); // Linked List becomes empty now
+    
+    // invalid, position to delete > size
+    // empty linked list size : 0
+    deletePosition(&head, 1);
+
+    return 0; 
+}
